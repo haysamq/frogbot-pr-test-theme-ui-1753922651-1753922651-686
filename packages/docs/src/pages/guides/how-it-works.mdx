@@ -1,0 +1,78 @@
+---
+title: How it Works
+---
+
+# How it Works
+
+Theme UI combines several libraries together to form a mini-framework for
+styling applications.
+
+Theme UI is built with:
+
+- [Emotion][]: used to generate isolated CSS with theming context
+- [MDX][]: used to provide custom Emotion styled components to MDX documents,
+  without polluting the global CSS scope
+- [Typography.js][]: optionally used for creating rich typographic styles with a
+  simple, high-level API
+
+[emotion]: https://emotion.sh
+[mdx]: https://mdxjs.com
+[typography.js]: https://github.com/KyleAMathews/typography.js
+
+## ThemeUIProvider
+
+The Theme UI `ThemeUIProvider` component wraps Emotion's `ThemeProvider`, which
+adds the `theme` object to context for use with Emotion.
+
+## Custom Components
+
+When using the `components` prop to add custom MDX components, each component is
+wrapped with the `sx` prop to allow the component to pick up values from the
+`theme.styles` object.
+
+## JSX Pragma
+
+The Theme UI JSX function wraps the Emotion JSX function, converting the `sx`
+prop to a call to `@theme-ui/css`. The two examples below yield the same
+results:
+
+```jsx
+// with Emotion's JSX function
+// this is typically handled with the Emotion Babel preset
+/** @jsxImportSource @emotion/react */
+import { css } from 'theme-ui'
+
+export default (props) => (
+  <div
+    {...props}
+    css={css({
+      color: 'white',
+      bg: 'primary',
+      fontSize: 4,
+    })}
+  />
+)
+```
+
+```jsx
+// with Theme UI's JSX function
+/** @jsxImportSource theme-ui */
+
+export default (props) => (
+  <div
+    {...props}
+    sx={{
+      color: 'white',
+      bg: 'primary',
+      fontSize: 4,
+    }}
+  />
+)
+```
+
+<Note>
+
+Confused about this `@jsxImportSource` comment? Read more about
+[JSX Pragma](/guides/jsx-pragma).
+
+</Note>
