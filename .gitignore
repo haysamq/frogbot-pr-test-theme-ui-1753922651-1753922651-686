@@ -1,0 +1,15 @@
+.cache
+public
+node_modules
+dist
+coverage
+.DS_Store
+.rts2_cache*
+.idea
+.vscode
+.env
+.envrc
+.envrc.ps1
+.publish-log.txt
+yarn.lock
+.vercel
